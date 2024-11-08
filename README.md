@@ -7,6 +7,7 @@
 
 ### Redirect
 - [Tugas 7](#pertanyaan-tugas-7)
+- [Tugas 8](#pertanyaan-tugas-8)
 
 ### Pertanyaan Tugas 7 
 
@@ -311,4 +312,115 @@
         }
         }
 ```
-    
+
+
+### Pertanyaan Tugas 8
+
+1. Apa kegunaan `const` di Flutter? Jelaskan apa keuntungan ketika menggunakan `const` pada kode Flutter. Kapan sebaiknya kita menggunakan `const`, dan kapan sebaiknya tidak digunakan?
+
+    **JAWAB**:
+
+    `const` digunakan untuk mendefinisikan nilai tetap yang tidak akan berubah sepanjang runtime aplikasi, seperti warna, padding, margin, teks, atau ukuran tertentu. Keuntungan menggunakan `const` adalah performa yang lebih baik karena Flutter bisa mengoptimalkan widget karena Flutter tahu bahwa widget tersebut tidak perlu di-rebuild, sehingga tidak perlu diproses ulang ketika ada perubahan dalam aplikasi. Selain itu, objek yang di-compile dengan `const` hanya disimpan satu kali dalam memori (shared memory), jadi jika ada objek `const` yang sama di beberapa tempat, hanya satu objek yang disimpan, sehingga memori yang digunakan lebih efisien. 
+
+    `const` sebaiknya digunakan untuk menyimpan nilai widget atau objek tersebut tidak akan berubah sepanjang runtime aplikasi dan tidak bergantung pada data dinamis, seperti teks tetap, padding tetap, margin tetap, warna tetap, atau ikon tetap. `const` sebaiknya tidak digunakan jika kita menginginkan widget atau objek yang dinamis, artinya nilai objek bergantung pada perubahan state atau input pengguna. Contohnya adalah widget yang nilainya dihasilkan dari variabel yang bisa berubah, seperti hasil dari `setState`.
+
+2. Jelaskan dan bandingkan penggunaan _Column_ dan _Row_ pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+
+    **JAWAB**:
+
+    - _Column_ adalah widget yang mengatur tata letak widget di dalamnya secara vertikal (dari atas ke bawah). _Column_ berguna ketika kita ingin menumpuk widget secara vertikal dalam satu kolom. Contoh implementasinya sebagai berikut:
+
+    ```dart
+        Column(
+            mainAxisAlignment: MainAxisAlignment.center,    // Mengatur ruang antara widget di sepanjang sumbu utama (vertikal dalam kasus Column)
+            crossAxisAlignment: CrossAxisAlignment.start,   // Digunakan untuk mengatur widget di sepanjang sumbu silang (horizontal dalam kasus Column)
+            children: <Widget>[
+                Text('Halo'),
+                SizedBox(height: 10),
+                Text('FAM'),
+                SizedBox(height: 10),
+                ElevatedButton(
+                onPressed: () {},
+                child: Text('Lesgoo'),
+                ),
+            ],
+        );
+    ```
+
+    Dalam contoh di atas, widget Text dan ElevatedButton ditampilkan secara vertikal dengan jarak antar item menggunakan SizedBox.
+
+    - _Row_ adalah widget yang mengatur tata letak widget di dalamnya secara horizontal (dari kiri ke kanan). Ini berguna ketika Anda ingin menyusun widget secara horizontal dalam satu baris.
+
+    ```dart
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,   // Mengatur ruang antara widget di sepanjang sumbu utama (horizontal dalam kasus Row)
+            crossAxisAlignment: CrossAxisAlignment.center,  // Digunakan untuk mengatur widget di sepanjang sumbu silang (vertikal dalam kasus Row)
+            children: <Widget>[
+                Icon(Icons.star, color: Colors.orange),
+                Text('Halo'),
+                ElevatedButton(
+                onPressed: () {},
+                child: Text('Tombol'),
+                ),
+            ],
+        );
+    ```
+
+    Dalam contoh di atas, Icon, Text, dan ElevatedButton ditampilkan secara horizontal dengan jarak yang merata di antara elemen menggunakan MainAxisAlignment.spaceAround.
+
+3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+
+    **JAWAB**:
+
+    Elemen input yang saya gunakan:
+
+    a. TextFormField, untuk mengumpulkan input teks dari pengguna, seperti nama produk, harga, deskripsi, jumlah, dan kategori. Untuk harga dan jumlah saya melakukan parse double dan int terlebih dahulu agar angkanya menjadi teks.
+
+    b. Switch, digunakan sebagai input untuk opsi "Is Featured".
+
+    Elemen input flutter lain yang tidak saya gunakan:
+
+    a. Radio, elemen input ini dapat digunakan untuk membuat pilihan yang saling eksklusif, cocok jika hanya satu opsi yang diizinkan untuk dipilih dari beberapa pilihan. Dalam aplikasi ini, saya tidak menggunakannya karena tidak ada opsi yang memerlukan pemilihan eksklusif (termasuk kategori, karena saya tidak mengimplementasikan opsi pemilihan ekslusif pada tugas web pra-UTS).
+
+    b. Slider, elemen ini memungkinkan pengguna memilih nilai dari suatu rentang tertentu. Biasanya digunakan untuk input angka dalam skala, seperti rating atau pengaturan volume. Aplikasi saya tidak memerlukan jenis input semacam itu, jadi elemen ini tidak saya gunakan.
+
+    c. Checkbox, digunakan ketika ada beberapa pilihan yang bisa dipilih secara bersamaan. Saya tidak menggunakannya di aplikasi saya karena tidak ada field yang membutuhkan pilihan multipel.
+
+    d. DatePicker, digunakan untuk memilih tanggal dengan mudah dari tampilan kalender. Elemen ini cocok untuk input tanggal atau waktu, namun tidak relevan untuk aplikasi ini karena tidak ada input yang memerlukan tanggal.
+
+    e. DropdownButton, elemen ini bisa digunakan untuk memberikan pilihan dari daftar opsi yang terbatas. Sebenarnya ini bisa dipertimbangkan sebagai alternatif input untuk kategori produk, tetapi dalam tugas ini saya menggunakan TextFormField untuk kategori karena sudah terlanjur sejak tugas web pra-UTS.
+
+4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+
+    **JAWAB**:
+
+    Untuk mengatur tema (theme) dalam aplikasi Flutter agar konsisten, dapat digunakan `ThemeData`, contohnya `ColorScheme` di `MaterialApp` yang berada di `main.dart`. Kemudian, di setiap widget yang memerlukan akses ke warna atau gaya yang sudah diatur di ThemeData, saya dapat menggunakan Theme.of(context) untuk mengakses tema aplikasi. Dengan demikian, aplikasi menjadi lebih konsisten dalam tampilan, dan jika ada perubahan warna tema, cukup diubah di satu tempat (ThemeData), sehingga semua elemen yang menggunakan warna atau gaya dari tema akan ikut berubah secara otomatis. Untuk aplikasi yang saya buat, terdapat beberapa elemen yang mengimplementasikan tema, salah satu contohnya pada left drawer header:
+
+    ```dart
+        class LeftDrawer extends StatelessWidget {
+        const LeftDrawer({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+            return Drawer(
+            child: ListView(
+                children: [
+                DrawerHeader(
+                        decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                ),
+                ...
+                )]))}},
+    ```
+
+5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+
+    **JAWAB**:
+
+    Flutter menyediakan class Navigator yang berisi beberapa method, diantaranya Navigator.push, Navigator.pop, dan Navigator.pushReplacement yang dicontohkan di tutorail dan saya gunakan pada tugas kali ini. 
+
+    - Navigator.push() menambahkan suatu route ke dalam stack route yang dikelola oleh Navigator. Method ini digunakan untuk menambahkan route di top of stack, dan digunakan ketika kita ingin berpindah halaman dan menambahkan halaman tersebut ke atas stack, sehingga pengguna dapat menekan tombol Back untuk kembali ke halaman sebelumnya yang berada dibawah top of stack.
+
+    - Navigator.pop() menghapus route saat ini (yang sedang ditampilkan ke pengguna) sehingga halaman yang ditampilkan adalah route yang berada di bawah top of stack yang dikelola Navigator (biasanya berupa halaman sebelumnya).
+
+    - Navigator.pushReplacement() menghapus route yang sedang ditampilkan ke pengguna dan langsung menggantinya dengan suatu route yang sudah didefinisikan, tanpa mengubah route yang berada di bawah stack. Dalam kata lain, method ini digunakan untuk mengganti halaman saat ini dengan halaman baru tanpa menambahkan ke stack, sehingga pengguna tidak bisa kembali ke halaman sebelumnya.
